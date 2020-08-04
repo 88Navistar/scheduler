@@ -16,14 +16,14 @@ export default function DayListItem(props) {
     onClick={() => props.setDay(name)}
     >
       <h2 className="text--regular">{name}</h2>
-      <h3 className="text--light">{formatSpots(spots)}</h3>
+      <h3 className="text--light">{countSpots(spots)}</h3>
     </li>
   );
 }
-  const formatSpots = spots => {
+  const countSpots = spots => {
   let message = 
     spots > 1
-      ? `${spots} spots remaining` //either more than one spot or zero
+      ? `${spots} spots remaining` //more than one spot or zero
       : spots === 0
       ? "no spots remaining"
       : `${spots} spot remaining`; // can only be one spot left
