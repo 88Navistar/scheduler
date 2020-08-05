@@ -1,7 +1,27 @@
-
 import React, { useState } from "react";
 import "components/Application.scss";
+import InterviewList from "./InterviewerList"
+import Appointment from "./Appointment"
 import DayList from "./DayList";
+
+const appointments = [
+  {
+    id: 1,
+    time: "12pm",
+  },
+  {
+    id: 2,
+    time: "1pm",
+    interview: {
+      student: "Lydia Miller-Jones",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  }
+];
 const days = [
   {
     id: 1,
@@ -19,6 +39,14 @@ const days = [
     spots: 0,
   },
 ];
+
+const appointment = appointments.map((appointment) => {
+  return (
+    <Appointment key={appointment.id} {...appointment} />
+  )
+})
+
+
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
   return (
@@ -44,7 +72,8 @@ export default function Application(props) {
 />
       </section>
       <section className="schedule">
-        
+        {appointment}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
