@@ -3,33 +3,8 @@ import "components/Application.scss";
 //import InterviewList from "./InterviewerList"
 import Appointment from "./Appointment"
 import DayList from "./DayList";
-//import getAppointmentsForDay from ".helpers/selectors"
+import { getAppointmentsForDay, getInterview} from "helpers/selectors"
 import axios from "axios"
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
-
-const appointment = appointments.map((appointment) => {
-  return (
-    <Appointment key={appointment.id} {...appointment} />
-  )
-})
 
 
 export default function Application(props) {
@@ -37,20 +12,31 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
-    //interviewers: {}
+    interviewers: {}
   });
   const setDay = day => setState({ ...state, day });
   //const setDays = days => (prev => ({ ...prev, days }));
   //const [day, setDay] = useState("Monday");
   //const [days, setDays] = useState([])
-
   useEffect(() => {
-    Promise.all([axios.get('/api/days'), (axios.get('/api/appointments'))])
+    Promise.all([axios.get('/api/days'), (axios.get('/api/appointments')),(axios.get('/api/interviewers'))])
     .then(all => {
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data}))
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
     })
   }, []);
-  
+  const appointments = getAppointmentsForDay(state, state.day);
+  const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
+    
 
   return (
     <main className="layout">
@@ -75,7 +61,7 @@ export default function Application(props) {
 />
       </section>
       <section className="schedule">
-        {appointment}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
