@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "components/Application.scss";
-import InterviewList from "./InterviewerList"
+//import InterviewList from "./InterviewerList"
 import Appointment from "./Appointment"
 import DayList from "./DayList";
+//import getAppointmentsForDay from ".helpers/selectors"
 import axios from "axios"
 
 const appointments = [
@@ -32,20 +33,23 @@ const appointment = appointments.map((appointment) => {
 
 
 export default function Application(props) {
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   //interviewers: {}
-  // });
-  //const setDay = day => setState({ ...state, day });
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([])
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+    //interviewers: {}
+  });
+  const setDay = day => setState({ ...state, day });
+  //const setDays = days => (prev => ({ ...prev, days }));
+  //const [day, setDay] = useState("Monday");
+  //const [days, setDays] = useState([])
 
   useEffect(() => {
-    axios.get('/api/days')
-    .then((response) => {setDays(response.data)});
-  }, [])
+    Promise.all([axios.get('/api/days'), (axios.get('/api/appointments'))])
+    .then(all => {
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data}))
+    })
+  }, []);
   
 
   return (
@@ -59,8 +63,8 @@ export default function Application(props) {
 <hr className="sidebar__separator sidebar--centered" />
 <nav className="sidebar__menu">
   <DayList
-    days={days}
-    day={day}
+    days={state.days}
+    day={state.day}
     setDay={setDay}
   />
 </nav>
