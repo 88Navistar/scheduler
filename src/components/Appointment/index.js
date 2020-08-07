@@ -26,7 +26,10 @@ export default function Appointment(props) {
         <Show student={interview.student} interviewer={[interview.interviewer]} /> 
       )}
       {mode === CREATE && (
-        <Form interviewers={[]} />
+        <Form interviewers={props.interviewers} //changed to props.interviews after helper function 
+        //onSave={save} or similar
+        onCancel={(event) => back()}
+        />
       )}
     </article>
   )}
