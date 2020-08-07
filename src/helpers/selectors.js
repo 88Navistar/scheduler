@@ -1,9 +1,4 @@
 
-// function selectUserByName(state, name) {
-//   const filteredNames = state.users.filter(user => user.name === name);
-//   return filteredNames;
-// }
-
 export function getAppointmentsForDay(state, day) {
   if (state.days.length === 0) {
     return [];
