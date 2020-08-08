@@ -9,8 +9,24 @@ import axios from "axios"
 
 export default function Application(props) {
   function bookInterview(id, interview) {
-    console.log(id, interview);
-  }
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    return axios.put(`/api/appointments/${id}`, appointment)
+      .then(response => {
+        setState({
+          ...state,
+          appointments
+        });
+        return response;
+      })
+  } 
 
   const [state, setState] = useState({
     day: "Monday",
@@ -25,6 +41,7 @@ export default function Application(props) {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
     })
   }, []);
+
   const appointments = getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {
@@ -37,7 +54,8 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
-        interviewer={interviewers}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
@@ -71,4 +89,5 @@ export default function Application(props) {
       </section>
     </main>
   );
+  
 }
