@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-//import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -24,11 +24,11 @@ export default function useApplicationData() {
     
     return axios.put(`/api/appointments/${id}`, appointment)
       .then(response => {
-        return setState({
-          ...state,
-          appointments
-        });
-      })
+        const newState = {...state, appointments};
+      const updatedSpots = calcSpots(newState);
+
+      setState(updatedSpots);
+    });
   } 
   function cancelInterview(id){
     const appointment = {
@@ -41,12 +41,12 @@ export default function useApplicationData() {
     };
     return axios.delete(`/api/appointments/${id}`)
       .then(response => {
-        setState({
-          ...state,
-          appointments
-        });
-        return response;
-      })
+        const newState = {...state, appointments};
+      const updatedSpots = calcSpots(newState);
+
+      setState(updatedSpots);
+    });
+  
   }
   useEffect(() => {
     Promise.all([axios.get('/api/days'), (axios.get('/api/appointments')),(axios.get('/api/interviewers'))])
@@ -59,12 +59,19 @@ export default function useApplicationData() {
   }, []);
   
 
-  // function spotsRemaining(newState) {
-  //    const currentDay = state.days.findIndex(day => state.day === day.name)
-  //    console.log(getAppointmentsForDay(newState, newState.days[currentDay].name));
-  //   return newState;
-  //  }
-  //  spotsRemaining()
+  function calcSpots(newState) {
+    const currentDay = state.days.findIndex(day => state.day === day.name);
+    const spots = getAppointmentsForDay(newState, newState.days[currentDay].name);
+    const availSpots = spots.filter(appointment => {
+      return appointment.interview === null;
+    });
+
+    const daysCopy = [...state.days];
+    daysCopy[currentDay].spots = availSpots.length;
+
+    return {...newState, days: daysCopy };
+  };
+
 
   return { state, setDay, bookInterview, cancelInterview, errorMsg };
 }
