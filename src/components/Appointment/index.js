@@ -55,7 +55,7 @@ export default function Appointment(props) {
   
 
   return (
-    <article className="appointment">
+    <article data-testid="appointment" className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={(event) => transition(CREATE)} />}
       {mode === SHOW && (
@@ -93,7 +93,7 @@ export default function Appointment(props) {
       )}
       {mode === CONFIRM && (
         <Confirm
-          message="You will lose your interview, are you sure?"
+          message="Are you sure you would like to delete?"
           onCancel={(event) => back()}
           onConfirm={cancel} 
         />
