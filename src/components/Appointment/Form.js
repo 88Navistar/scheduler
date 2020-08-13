@@ -1,6 +1,6 @@
-import React from "react"
-import Button from "components/Button"
-import InterviewerList from "components/InterviewerList"
+import React from "react";
+import Button from "components/Button";
+import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
   const {interviewers, onCancel, onSave } = props;

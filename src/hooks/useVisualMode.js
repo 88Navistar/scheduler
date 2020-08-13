@@ -12,16 +12,16 @@ export default function useVisualMode(initial) {
       setHistory(history);
       setMode(history[history.length - 1]);
     }
-  };
+  }
 
   function back() {
     if (history.length > 1) {
-    history.pop();
-    setHistory(history);
-    setMode(history[history.length - 1]);
+      history.pop();
+      setHistory(history);
+      setMode(history[history.length - 1]);
     }
 
-  };
+  }
 
   return { mode, transition, back };
 }
