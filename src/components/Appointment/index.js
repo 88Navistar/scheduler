@@ -8,9 +8,9 @@ import Status from "components/Appointment/Status";
 import Form from "components/Appointment/Form";
 import Error from "components/Appointment/Error";
 import useVisualMode from "hooks/useVisualMode";
-//import axios from "axios";
 
 
+// Appoinment is renedered in Application.js, responsible for modes and transitions.
 export default function Appointment(props) {
   const {time, interview} = props;
   const EMPTY = "EMPTY";
@@ -23,7 +23,7 @@ export default function Appointment(props) {
   const ERROR_DELETE = "ERROR_DELETE";
   const ERROR_SAVE = "ERROR_SAVE";
   
-
+//Visual mode hook to deal with stack
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );

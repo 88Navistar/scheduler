@@ -2,7 +2,6 @@ import React from "react";
 import DayListItem from "./DayListItem"
 
 //DayList component to hold multiple days
-
 export default function DayList(props) {
   const {setDay, day, days} = props;
   const dayListItem = days.map(({id, name, spots}) => {
