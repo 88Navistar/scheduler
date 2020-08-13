@@ -1,5 +1,6 @@
 import React from "react";
 
+//Renders in index.js and shows a booked appointment
 export default function Show(props) {
   
   return (

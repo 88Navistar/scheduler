@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { getAppointmentsForDay } from "helpers/selectors";
 
+//Rendered in application.js, this custom hook contains multiple helper functions and includes the API calls
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
@@ -12,6 +13,7 @@ export default function useApplicationData() {
   const setDay = day => setState({ ...state, day });
   const [errorMsg, setErrorMsg] = useState('');
   
+//Updates local state and puts data to API
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -30,6 +32,7 @@ export default function useApplicationData() {
         setState(updatedSpots);
       });
   }
+//Update local state and delete interview from API
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -48,6 +51,7 @@ export default function useApplicationData() {
       });
   
   }
+// API call to retrieve data
   useEffect(() => {
     Promise.all([axios.get('/api/days'), (axios.get('/api/appointments')),(axios.get('/api/interviewers'))])
       .then(all => {
@@ -58,7 +62,7 @@ export default function useApplicationData() {
       });
   }, []);
   
-
+//Helper function to update available appointmnets on each day.
   function calcSpots(newState) {
     const currentDay = state.days.findIndex(day => state.day === day.name);
     const spots = getAppointmentsForDay(newState, newState.days[currentDay].name);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+//Custom hook to help with user actions in index.js
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);

@@ -2,6 +2,7 @@ import React from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
+// Rendered in index.js when creating a new appointment,  Used to set interviwer and student name
 export default function Form(props) {
   const {interviewers, onCancel, onSave } = props;
   const [name, setName] = React.useState(props.name || "");

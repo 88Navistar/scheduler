@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "components/Button";
 
+//Rendered in index.js to conirm client wants to delete an appoinment
 export default function Confirm(props) {
   return (
     <main className="appointment__card appointment__card--confirm">

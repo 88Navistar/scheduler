@@ -1,5 +1,6 @@
 import React from "react";
 
+// Rendered in index.js to inform of error while saving or deleting
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">

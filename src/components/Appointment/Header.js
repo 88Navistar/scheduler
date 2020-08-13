@@ -1,5 +1,6 @@
 import React from "react";
 
+//Renders the header for all appointment slots in index.js
 export default function Header(props) {
   return (
     <header className="appointment__time">

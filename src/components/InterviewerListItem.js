@@ -1,8 +1,8 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from 'prop-types';
 import "components/InterviewerListItem.scss";
 
+//Rendered in interviewList
 const InterviewerListItem = (props) => {
   const { name, avatar, selected, setInterviewer } = props;
   const interviewerClass = classNames("interviewers__item", {

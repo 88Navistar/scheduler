@@ -8,6 +8,7 @@ InterviewerList.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
+//Rendered in Form.js
 export default function InterviewerList(props) {
   const singleInterviewer = props.interviewers.map(interviewer => {
       return <InterviewerListItem
