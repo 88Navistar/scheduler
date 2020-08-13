@@ -5,6 +5,10 @@
 
 # testing
 /coverage
+/.storybook
+/cypress
+/public
+/stories
 
 # production
 /build
@@ -16,10 +20,6 @@
 .env.test.local
 .env.production.local
 .eslintrc.js
-
-# Ignore artifacts:
-build
-coverage
 
 # Ignore all HTML files:
 *.html
