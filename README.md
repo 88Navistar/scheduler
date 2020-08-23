@@ -9,6 +9,14 @@ Clients have full control over cancelling and the choice of re-booking.
 !["Cancel View"](https://github.com/88Navistar/scheduler/blob/master/docs/cancellingyou.png?raw=true)
 !["Standard View"](https://github.com/88Navistar/scheduler/blob/master/docs/standardview.png?raw=true)
 
+## Dependencies
+Axios
+Classnames
+Normalize.css
+React
+React-dom
+React-scripts
+
 ## Setup
 
 Install dependencies with `npm install`.
