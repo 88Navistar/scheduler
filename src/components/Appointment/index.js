@@ -99,10 +99,10 @@ export default function Appointment(props) {
         />
       )}
       {mode === ERROR_DELETE && (
-        <Error message="Try again, couldn't delete" onClose={() => back()} />
+        <Error message="could not delete appointment" onClose={() => back()} />
       )}
       {mode === ERROR_SAVE && (
-        <Error message="Try again, couldn't save" onClose={() => back()} />
+        <Error message="could not save appointment" onClose={() => back()} />
       )}
       
     </article>

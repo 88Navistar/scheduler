@@ -161,7 +161,7 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Delete"));
     expect(
-      getByText(container, /are you sure you want to delete/i)
+      getByText(container, /Are you sure you would like to delete/i)
     ).toBeInTheDocument();
 
     fireEvent.click(queryByText(appointment, "Confirm"));
